@@ -8,6 +8,12 @@ const closeModalBtn = document.getElementById("close-modal-btn");
 const cartCounter = document.getElementById("cart-count");
 const addressInput = document.getElementById("adress");
 const addressWarn = document.getElementById("adress-warn");
+const paymentOptions = document.querySelectorAll('input[name="payment-method"]');
+const pixSection = document.getElementById('pix-section');
+const cardSection = document.getElementById('card-section');
+
+
+
 let cart = [];
 //ABRIR O MODAL CARRINHO
 cartBtn.addEventListener("click", function () {
@@ -177,3 +183,105 @@ if(isOpen){
   spanItem.classList.remove('bg-green-500')
   spanItem.classList.add('bg-red-500')
 }
+
+//FORMAS DE PAGAME
+
+
+paymentOptions.forEach((option) => {
+  option.addEventListener('change', function () {
+    if (this.value === 'Pix') {
+      pixSection.classList.remove('hidden');
+      cardSection.classList.add('hidden');
+    } else if (this.value === 'Cartão') {
+      pixSection.classList.add('hidden');
+      cardSection.classList.remove('hidden');
+    }
+  });
+});
+
+async function generatePixQRCode(amount) {
+  // Exemplo de API para gerar QR Code Pix
+  const response = await fetch('https://api.example.com/generate-pix', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ amount }),
+  });
+  const data = await response.json();
+  const qrCodeUrl = data.qr_code_url;
+
+  const qrCodeContainer = document.getElementById('pix-qr-code');
+  qrCodeContainer.innerHTML = `<img src="${qrCodeUrl}" alt="QR Code Pix">`;
+}
+
+
+document.getElementById('card-form').addEventListener('submit', async function (event) {
+  event.preventDefault();
+
+  const cardNumber = document.getElementById('card-number').value;
+  const cardExpiry = document.getElementById('card-expiry').value;
+  const cardCvc = document.getElementById('card-cvc').value;
+
+  // Aqui você deve chamar uma API de pagamento com cartão
+  // Este é um exemplo hipotético
+  const response = await fetch('https://api.example.com/process-card-payment', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      cardNumber,
+      cardExpiry,
+      cardCvc,
+    }),
+  });
+
+  const result = await response.json();
+  if (result.success) {
+    alert('Pagamento realizado com sucesso!');
+    // Limpar o carrinho ou redirecionar o usuário
+  } else {
+    alert('Erro ao processar pagamento. Tente novamente.');
+  }
+});
+
+
+
+checkoutBtn.addEventListener('click', function() {
+  const isOpen = checkRestauranteOpen();
+  if (!isOpen) {
+    Toastify({
+      text: "Ops! A hamburgueria está fechada!",
+      duration: 3000,
+      gravity: "top",
+      position: "right",
+      style: {
+        background: "linear-gradient(to right, #ff5f6d, #ffc371)",
+      },
+    }).showToast();
+    return;
+  }
+
+  if (cart.length === 0) return;
+
+  if (addressInput.value === "") {
+    addressWarn.classList.remove("hidden");
+    addressInput.classList.add('border-red-500');
+    return;
+  }
+
+  const paymentMethod = getSelectedPaymentMethod();
+  if (!paymentMethod) {
+    paymentWarn.classList.remove("hidden");
+    return;
+  }
+
+  if (paymentMethod === 'Pix') {
+    const total = cart.reduce((sum, item) => sum + (item.price * item.quantidade), 0);
+    generatePixQRCode(total);
+  } else if (paymentMethod === 'Cartão') {
+    // Exibir formulário de pagamento com cartão
+    cardSection.classList.remove('hidden');
+  }
+});
