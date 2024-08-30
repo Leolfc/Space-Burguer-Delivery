@@ -1,2 +1,2 @@
-# Space Burguer Delivery
- SIte de hamburgueria criado com Html5, Tailwindcss e Javascript.
+# Hamburgueria Space Burguer
+ Projeto hamburgueria criado com Html5, Tailwindcss e Javascript
