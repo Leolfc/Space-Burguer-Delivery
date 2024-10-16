@@ -68,9 +68,9 @@ function updateCartModal() {
     cartElement.innerHTML = `
         <div class="flex-col items-center justify-between >
         <div>
-        <h3 class="font-bold">${item.name}</h3>
+        <h2 class="text-red-600">${item.name}</h2>
         <p class="mt-2">R$ ${item.price.toFixed(2)}</p>
-        <p class="font-bold">Qtd: ${item.quantidade}</p>
+        <p class="font-bold text-red-600">Quantidade: ${item.quantidade}</p>
         </div>
         <div>
         
