@@ -499,7 +499,12 @@
 
 
 <p class="font-bold mt-4">Endereço de entrega:</p>
-<input class="w-full border-2 p-1 rounded my-1" id="adress" type="text" placeholder="Digite seu endereço completo">
+<label for="rua">RUA:</label>
+<input required class="w-full border-2 p-1 rounded my-1" id="adress" type="text" placeholder="Digite sua rua e seu número">
+<label for="bairro">BAIRRO:</label>
+<input  required class="w-full border-2 p-1 rounded my-1" id="bairro" type="text" placeholder="Digite seu bairro completo">
+<label for="complemento">COMPLEMENTO:</label>
+<input  required class="w-full border-2 p-1 rounded my-1" id="complemento" type="text" placeholder="Digite seu complemento ou ponto de referência">
 <p id="adress-warn" class="hidden text-red-500 ">Digite seu endereço completo</p>
 <div class="flex items-center justify-between mt-5 w-full">
     <button id="close-modal-btn">Fechar</button>
@@ -519,6 +524,6 @@
   
 </footer>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-<script src="script.js"></script>
+<script src="script.js" ></script>
 </body>
 </html>
