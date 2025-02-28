@@ -440,14 +440,11 @@
     </main>
 
     <!-- MODAL CART -->
-<<<<<<< HEAD
     <div id="cart-modal" class="bg-black/65 w-full h-full fixed top-0 left-0 z-50 flex items-center justify-center hidden overflow-auto ">
 <div class="bg-white p-5 rounded-md min-w-[90%] md:min-w-[600px] overflow-y-auto max-h-80 ">
 <h2 class=" text-center text-2xl font-bold mb-2">Meu carrinho</h2>
 
 <div id="cart-items" class="fle.x justify-between mb-2 flex-col  ">
-
-
 
 </div>
 
@@ -458,7 +455,7 @@
 <div id="pay" class="mt-4">
     <h3 class="font-bold mb-2">Escolha a forma de pagamento:</h3>
     <div>
-      <input type="radio" id="payment-pix" name="payment-method" value="Pix" checked>
+      <input type="radio" id="payment-pix" name="payment-method" value="Pix">
       <label for="payment-pix">Pix</label>
     </div>
     <div>
@@ -466,10 +463,17 @@
       <label for="payment-card">Cartão de Crédito/Débito</label>
     </div>
   
-    <div id="pix-section" class="mt-4">
-      <!-- QR Code será gerado aqui -->
-      <p>Faça o pagamento via Pix usando o QR Code abaixo:</p>
-      <div id="pix-qr-code"></div>
+    <div id="pix-section" class="mt-4 hidden">
+      <p class="text-center mb-4 font-bold">Faça o pagamento via Pix usando o QR Code ou a chave abaixo:</p>
+      <div class="flex flex-col items-center justify-center bg-gray-50 p-6 rounded-lg">
+        <div id="pix-qr-code" class="bg-white p-4 rounded-lg shadow-md mb-4"></div>
+        <p id="pix-total" class="text-center mt-2 font-bold text-green-600 text-xl"></p>
+      </div>
+      <div class="mt-4 text-center">
+        <button id="confirm-pix-payment" class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg transition-colors font-bold">
+          Confirmar Pagamento PIX
+        </button>
+      </div>
     </div>
   
     <div id="card-section" class="mt-4 hidden">
@@ -494,10 +498,7 @@
     <p id="payment-warn" class="hidden text-red-500">Por favor, escolha uma forma de pagamento.</p>
   </div>
   
-
 </div>
-
-
 
 <p class="font-bold mt-4">Endereço de entrega:</p>
 <label for="rua">RUA:</label>
@@ -512,115 +513,6 @@
     <button class="bg-green-500 py-1 px-3 rounded" id="checkout-btn">Finalizar pedido</button>
 </div>
 
-=======
-    <div id="cart-modal" class="bg-black/65 w-full h-full fixed top-0 left-0 z-50 flex items-center justify-center hidden overflow-auto p-4">
-        <!-- Modal content com scroll interno -->
-        <div class="bg-white rounded-lg shadow-xl w-full max-w-3xl max-h-[90vh] flex flex-col">
-            <!-- Cabeçalho fixo -->
-            <div class="p-6 border-b">
-                <h2 class="text-center text-2xl font-bold">Meu carrinho</h2>
-            </div>
-
-            <!-- Conteúdo com scroll -->
-            <div class="overflow-y-auto p-6 flex-1">
-                <!-- Itens do carrinho -->
-                <div id="cart-items" class="flex flex-col gap-4 mb-6">
-                    <!-- Items serão inseridos aqui -->
-</div>
-
-                <!-- Total -->
-                <p class="font-bold text-xl mb-6">Total: <span id="cart-total">R$ 0.00</span></p>
-
-                <!-- Seção de pagamento -->
-                <div class="space-y-6">
-    <div>
-                        <h3 class="font-bold text-lg mb-3">Escolha a forma de pagamento:</h3>
-                        <div class="space-y-2">
-                            <div class="flex items-center gap-2">
-                                <input type="radio" id="payment-pix" name="payment-method" value="Pix" class="w-4 h-4">
-                                <label for="payment-pix" class="text-lg">Pix</label>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <input type="radio" id="payment-card" name="payment-method" value="Cartão" class="w-4 h-4">
-                                <label for="payment-card" class="text-lg">Cartão de Crédito/Débito</label>
-                            </div>
-    </div>
-    </div>
-  
-                    <!-- Seção PIX -->
-                    <div id="pix-section" class="hidden">
-                        <p class="text-lg mb-4">Faça o pagamento via Pix usando o QR Code abaixo:</p>
-                        <div id="pix-qr-code" class="flex justify-center bg-gray-50 p-8 rounded-lg"></div>
-    </div>
-  
-                    <!-- Seção Cartão -->
-                    <div id="card-section" class="hidden space-y-4">
-                        <h4 class="font-bold text-lg">Dados do Cartão</h4>
-                        <form id="card-form" class="space-y-4">
-                            <div>
-                                <label for="card-number" class="block mb-1">Número do Cartão:</label>
-                                <input type="text" id="card-number" maxlength="16" 
-                                    class="w-full p-2 border rounded" 
-                                    placeholder="1234 5678 9012 3456" required>
-        </div>
-                            <div>
-                                <label for="card-expiry" class="block mb-1">Data de Expiração:</label>
-                                <input type="text" id="card-expiry" 
-                                    class="w-full p-2 border rounded" 
-                                    placeholder="MM/AA" required>
-        </div>
-                            <div>
-                                <label for="card-cvc" class="block mb-1">Código de Segurança:</label>
-                                <input type="text" id="card-cvc" 
-                                    class="w-full p-2 border rounded" 
-                                    placeholder="123" required>
-        </div>
-                            <button type="submit" 
-                                class="w-full bg-indigo-500 text-white py-2 px-4 rounded hover:bg-indigo-600 transition">
-                                Pagar com Cartão
-                            </button>
-      </form>
-    </div>
-  
-                    <!-- Endereço -->
-                    <div class="space-y-4">
-                        <h3 class="font-bold text-lg">Endereço de entrega:</h3>
-                        <div>
-                            <label for="adress" class="block mb-1">Rua:</label>
-                            <input required class="w-full p-2 border rounded" 
-                                id="adress" type="text" 
-                                placeholder="Digite sua rua e seu número">
-                        </div>
-                        <div>
-                            <label for="bairro" class="block mb-1">Bairro:</label>
-                            <input required class="w-full p-2 border rounded" 
-                                id="bairro" type="text" 
-                                placeholder="Digite seu bairro completo">
-                        </div>
-                        <div>
-                            <label for="complemento" class="block mb-1">Complemento:</label>
-                            <input required class="w-full p-2 border rounded" 
-                                id="complemento" type="text" 
-                                placeholder="Digite seu complemento ou ponto de referência">
-                        </div>
-                    </div>
-                    <p id="adress-warn" class="hidden text-red-500">Digite seu endereço completo</p>
-    <p id="payment-warn" class="hidden text-red-500">Por favor, escolha uma forma de pagamento.</p>
-  </div>
-</div>
-
-            <!-- Rodapé fixo com botões -->
-            <div class="p-6 border-t bg-gray-50 flex items-center justify-between">
-                <button id="close-modal-btn" 
-                    class="px-6 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition">
-                    Fechar
-                </button>
-                <button id="checkout-btn" 
-                    class="px-6 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition">
-                    Finalizar pedido
-                </button>
-            </div>
->>>>>>> f6a243e (Primeiro commit após a formatação do PC)
     </div>
 </div>
     
@@ -628,16 +520,11 @@
 <button id="cart-btn" class="flex items-center gap-2 text-white font-bold">
     (<span id="cart-count">0</span>)
     Veja meu carrinho
-    <if class="fa fa-shopping-cart text-white"></if>
+    <i class="fa fa-shopping-cart text-white"></i>
 </button>
-
-  
 </footer>
-<<<<<<< HEAD
-=======
-<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
->>>>>>> f6a243e (Primeiro commit após a formatação do PC)
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-<script src="script.js" ></script>
+<script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
